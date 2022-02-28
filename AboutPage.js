@@ -1,20 +1,37 @@
-import React from 'react';
-import main from '../assets/main.png';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
 import { color } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 import goal from '../assets/goal.png'
+import * as Linking from 'expo-linking';
+import React,{useState,useEffect} from 'react';
+import { StatusBar } from 'expo-status-bar';
 
 
-export default function AboutPage() {
-  console.disableYellowBox = true;
+const link = () => {
+        Linking.openURL("https://blog.naver.com/footprint25")
+    }
+
+export default function AboutPage({navigation,route}) {
+    useEffect(()=>{
+            navigation.setOptions({
+                title:"소개 페이지",
+                headerStyle: {
+                    backgroundColor: '#1F266A',
+                    shadowColor: "#1F266A",
+                },
+                headerTintColor: "#fff",
+            })
+        },[])
+
+    console.disableYellowBox = true;
   return (
       <View style={styles.container}>
+          <StatusBar style="light" />
         <Text style={styles.title}>스파르타 앱개발반 owl, Suri의 첫번째 앱 입니다!</Text>
         <View style={styles.middleContainer}>
             <Image style={styles.goal} source={goal} resizeMode={"cover"} />
             <Text style={styles.middleContents}>늦은 시작이지만, 개발자가 되기 위해 오늘도 한걸음   나아가고 있습니다.</Text>
             <Text style={styles.middleDesc}>그냥 늦은 게 더 늦은 것보다는 조금 빠르니까요 :D</Text>
-            <TouchableOpacity style={styles.instaGram}><Text style={styles.instaText} >owl Suri의 인스타그램</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.instaGram}><Text style={styles.instaText} onPress={()=>link()}>Suri의 블로그</Text></TouchableOpacity>
         </View>
       </View>
   )
@@ -27,10 +44,10 @@ const styles = StyleSheet.create({
     },
 
     title : {
-        width:220,
+        width:280,
         height:75,
-        marginTop:130,
-        fontSize:20,
+        marginTop:60,
+        fontSize:25,
         fontWeight:"700",
         alignSelf:"center",
         color:"#fff",
@@ -43,7 +60,8 @@ const styles = StyleSheet.create({
         height:500,
         borderRadius:20,
         backgroundColor:"#fff",
-        alignSelf:"center"
+        alignSelf:"center",
+        marginTop:10
     },
     goal:{
         marginTop:30,
@@ -69,7 +87,7 @@ const styles = StyleSheet.create({
     instaGram:{
         marginTop:40,
         width:180,
-        height:40,
+        height:50,
         backgroundColor:"#F3B13E",
         borderRadius:8,
         alignSelf:"center",
@@ -79,7 +97,7 @@ const styles = StyleSheet.create({
     },
     instaText:{
         color:"#fff",
-        fontSize:13,
-        fontWeight:"600"
+        fontSize:14,
+        fontWeight:"700"
     }
 })
